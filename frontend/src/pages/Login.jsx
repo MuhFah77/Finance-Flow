@@ -22,12 +22,12 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
-        <h1 className="font-display text-3xl mb-1">Ledger</h1>
-        <p className="text-ink/60 text-sm mb-8">Sign in to your account</p>
+        <h1 className="font-display text-3xl mb-1">Finance Flow</h1>
+        <p className="text-ink/60 dark:text-dink/60 text-sm mb-8">Sign in to your account</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <label className="text-sm block">
-            <span className="block text-ink/60 mb-1">Email</span>
+            <span className="block text-ink/60 dark:text-dink/60 mb-1">Email</span>
             <input
               type="email"
               className="input-field"
@@ -37,7 +37,7 @@ const Login = () => {
             />
           </label>
           <label className="text-sm block">
-            <span className="block text-ink/60 mb-1">Password</span>
+            <span className="block text-ink/60 dark:text-dink/60 mb-1">Password</span>
             <input
               type="password"
               className="input-field"
@@ -52,7 +52,7 @@ const Login = () => {
           </button>
         </form>
 
-        <p className="text-sm text-ink/60 mt-6">
+        <p className="text-sm text-ink/60 dark:text-dink/60 mt-6">
           No account yet?{" "}
           <Link to="/register" className="text-pine hover:underline">
             Create one
