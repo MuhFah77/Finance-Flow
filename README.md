@@ -1,4 +1,4 @@
-# Ledger — MERN Finance Tracker
+# Finance Flow — MERN Finance Tracker
 
 A full-stack personal finance tracker built with MongoDB, Express, React and Node.
 Track income and expenses, organize them by category, and set monthly budgets with
@@ -87,11 +87,4 @@ transactions and setting budgets.
 All routes except `/auth/register` and `/auth/login` require an
 `Authorization: Bearer <token>` header.
 
-## Ideas for extending this for your portfolio
 
-- Recurring transactions (auto-generate monthly entries)
-- CSV export / import
-- Multi-currency support with live FX rates
-- Charts (e.g. Recharts) for income vs. expense trends over time
-- Dark mode
-- Deploy: backend on Render/Railway, frontend on Vercel/Netlify, DB on Atlas
