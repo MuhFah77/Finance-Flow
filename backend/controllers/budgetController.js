@@ -13,8 +13,8 @@ const getBudgets = async (req, res, next) => {
       "name color"
     );
 
-    const start = new Date(y, m - 1, 1);
-    const end = new Date(y, m, 1);
+    const start = new Date(Date.UTC(y, m - 1, 1));
+    const end = new Date(Date.UTC(y, m, 1));
 
     const spentAgg = await Transaction.aggregate([
       { $match: { user: req.user._id, type: "expense", date: { $gte: start, $lt: end } } },

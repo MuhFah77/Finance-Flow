@@ -40,9 +40,9 @@ const CategoryManager = ({ categories, onCreate, onDelete }) => {
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: c.color }} />
               {c.name}
-              <span className="text-ink/40 text-xs">({c.type})</span>
+              <span className="text-ink/40 dark:text-dink/40 text-xs">({c.type})</span>
             </span>
-            <button onClick={() => onDelete(c._id)} className="text-xs text-ink/40 hover:text-brick">
+            <button onClick={() => onDelete(c._id)} className="text-xs text-ink/40 dark:text-dink/40 hover:text-brick">
               Remove
             </button>
           </li>

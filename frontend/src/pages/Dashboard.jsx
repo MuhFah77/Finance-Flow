@@ -16,8 +16,12 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   const loadAll = async () => {
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const year = now.getFullYear();
+
     const [summaryRes, categoriesRes, txRes] = await Promise.all([
-      api.get("/transactions/summary"),
+      api.get("/transactions/summary", { params: { month, year } }),
       api.get("/categories"),
       api.get("/transactions?limit=5"),
     ]);

@@ -26,7 +26,7 @@ const TransactionList = ({ transactions, currency, onDelete }) => {
           {transactions.map((t) => (
             <tr key={t._id} className="ledger-rule last:border-b-0  hover:bg-sand/50 dark:hover:bg-dsand/50">
               <td className="px-5 py-3 text-ink/70 dark:text-dink/70">
-                {new Date(t.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                {new Date(t.date).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" })}
               </td>
               <td className="px-5 py-3">
                 <span className="inline-flex items-center gap-2">
@@ -49,7 +49,7 @@ const TransactionList = ({ transactions, currency, onDelete }) => {
               <td className="px-5 py-3 text-right">
                 <button
                   onClick={() => onDelete(t._id)}
-                  className="text-xs text-ink/40 dark:text-dink/40 hover:text-brick"
+                  className="text-xs text-ink/60 dark:text-dink/40 hover:text-brick"
                 >
                   Delete
                 </button>

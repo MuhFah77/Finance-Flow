@@ -88,13 +88,21 @@ const getSummary = async (req, res, next) => {
     const m = Number(month) || now.getMonth() + 1;
     const y = Number(year) || now.getFullYear();
 
-    const start = new Date(y, m - 1, 1);
-    const end = new Date(y, m, 1);
+    const start = new Date(Date.UTC(y, m - 1, 1));
+    const end = new Date(Date.UTC(y, m, 1));
+
+    console.log("SUMMARY DEBUG:", {
+      reqUserId: req.user._id.toString(),
+      start,
+      end,
+    });
 
     const results = await Transaction.aggregate([
       { $match: { user: req.user._id, date: { $gte: start, $lt: end } } },
       { $group: { _id: "$type", total: { $sum: "$amount" } } },
     ]);
+
+    console.log("SUMMARY RESULTS:", results);
 
     const summary = { income: 0, expense: 0 };
     results.forEach((r) => {

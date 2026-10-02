@@ -10,8 +10,12 @@ const Budgets = () => {
   const [loading, setLoading] = useState(true);
 
   const loadAll = async () => {
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const year = now.getFullYear();
+
     const [budgetsRes, categoriesRes] = await Promise.all([
-      api.get("/budgets"),
+      api.get("/budgets", { params: { month, year } }),
       api.get("/categories"),
     ]);
     setBudgets(budgetsRes.data);

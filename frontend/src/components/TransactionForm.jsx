@@ -2,9 +2,15 @@ import { useState } from "react";
 
 const emptyForm = { category: "", type: "expense", amount: "", note: "", date: "" };
 
+const todayLocal = () => {
+  const d = new Date();
+  const offset = d.getTimezoneOffset();
+  return new Date(d.getTime() - offset * 60000).toISOString().slice(0, 10);
+};
+
 const TransactionForm = ({ categories, onSubmit, initial }) => {
   const [form, setForm] = useState(
-    initial || { ...emptyForm, date: new Date().toISOString().slice(0, 10) }
+    initial || { ...emptyForm, date: todayLocal() }
   );
 
   const filteredCategories = categories.filter((c) => c.type === form.type);
@@ -18,7 +24,7 @@ const TransactionForm = ({ categories, onSubmit, initial }) => {
     e.preventDefault();
     if (!form.category || !form.amount) return;
     onSubmit({ ...form, amount: Number(form.amount) });
-    if (!initial) setForm({ ...emptyForm, date: new Date().toISOString().slice(0, 10) });
+    if (!initial) setForm({ ...emptyForm, date: todayLocal() });
   };
 
   return (

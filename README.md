@@ -4,6 +4,10 @@ A full-stack personal finance tracker built with MongoDB, Express, React and Nod
 Track income and expenses, organize them by category, and set monthly budgets with
 progress bars that warn you when you're close to (or over) the limit.
 
+⚡ Deployment Note
+
+Please note: The backend is hosted on Render's free tier. Because the service may spin down after a period of inactivity, the first request can take a few seconds to load while the server starts up. Subsequent requests should respond normally.
+
 ## Features
 
 - **Auth** — JWT-based register/login, passwords hashed with bcrypt
