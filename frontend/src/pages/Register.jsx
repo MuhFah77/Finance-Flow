@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 const Register = () => {
   const { register } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
@@ -20,7 +22,13 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6">
+    <div className="min-h-screen flex items-center justify-center px-6 relative">
+      <button
+        onClick={toggleTheme}
+        className="absolute top-6 right-6 text-sm text-ink/60 dark:text-dink/60 hover:underline"
+      >
+        {theme === "dark" ? "Light mode" : "Dark mode"}
+      </button>
       <div className="w-full max-w-sm">
         <h1 className="font-display text-3xl mb-1">Finance Flow</h1>
         <p className="text-ink/60 dark:text-dink/60 text-sm mb-8">Create your account</p>
