@@ -3,10 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 
+
 const Login = () => {
-  const { login } = useAuth();
+  
+  const { login, demoLogin } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const [demoLoading, setDemoLoading] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
@@ -20,6 +23,19 @@ const Login = () => {
       setError(err.response?.data?.message || "Could not sign in");
     }
   };
+
+  const handleDemo = async () => {
+  setError("");
+  setDemoLoading(true);
+  try {
+    await demoLogin();
+    navigate("/");
+  } catch (err) {
+    setError(err.response?.data?.message || "Could not load the demo");
+  } finally {
+    setDemoLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center px-6 relative">
@@ -59,6 +75,21 @@ const Login = () => {
             Sign in
           </button>
         </form>
+
+        <div className="flex items-center gap-3 my-6">
+          <div className="flex-1 border-t border-line dark:border-dline" />
+          <span className="text-xs text-ink/50 dark:text-dink/50">or</span>
+          <div className="flex-1 border-t border-line dark:border-dline" />
+        </div>
+
+        <button
+          type="button"
+          onClick={handleDemo}
+          disabled={demoLoading}
+          className="btn-secondary w-full disabled:opacity-60"
+        >
+          {demoLoading ? "Loading demo… this can take a moment" : "Try the demo account"}
+        </button>
 
         <p className="text-sm text-ink/60 dark:text-dink/60 mt-6">
           No account yet?{" "}

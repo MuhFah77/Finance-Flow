@@ -2,6 +2,7 @@
 const User = require("../models/User");
 const Category = require("../models/Category");
 const generateToken = require("../utils/generateToken");
+const { resetDemo } = require("../utils/seedDemo");
 
 // @desc Register a new user
 // @route POST /api/auth/register
@@ -79,4 +80,21 @@ const getMe = async (req, res, next) => {
   }
 };
 
-module.exports = { registerUser, loginUser, getMe };
+// @desc Reset and log into the shared demo account
+// @route POST /api/auth/demo
+const demoLogin = async (req, res, next) => {
+  try {
+    const user = await resetDemo();
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      currency: user.currency,
+      token: generateToken(user._id),
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { registerUser, loginUser, getMe, demoLogin };
