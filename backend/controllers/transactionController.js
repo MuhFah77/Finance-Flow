@@ -118,10 +118,50 @@ const getSummary = async (req, res, next) => {
   }
 };
 
+const getTrend = async (req, res, next) => {
+  try {
+    const months = Number(req.query.months) || 6;
+    const now = new Date();
+    const start = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - (months - 1), 1));
+
+    const results = await Transaction.aggregate([
+      { $match: { user: req.user._id, date: { $gte: start } } },
+      {
+        $group: {
+          _id: { year: { $year: "$date" }, month: { $month: "$date" }, type: "$type" },
+          total: { $sum: "$amount" },
+        },
+      },
+    ]);
+
+    const buckets = [];
+    for (let i = months - 1; i >= 0; i--) {
+      const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
+      buckets.push({
+        year: d.getUTCFullYear(),
+        month: d.getUTCMonth() + 1,
+        label: d.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }),
+        income: 0,
+        expense: 0,
+      });
+    }
+
+    results.forEach((r) => {
+      const bucket = buckets.find((b) => b.year === r._id.year && b.month === r._id.month);
+      if (bucket) bucket[r._id.type] = r.total;
+    });
+
+    res.json(buckets);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getTransactions,
   createTransaction,
   updateTransaction,
   deleteTransaction,
   getSummary,
+  getTrend,
 };
