@@ -58,6 +58,14 @@ const Dashboard = () => {
 
   if (loading) return <div className="max-w-5xl mx-auto px-6 py-10 text-ink/50 dark:text-dink/50">Loading…</div>;
 
+  if (!summary) {
+    return (
+      <div className="max-w-5xl mx-auto px-6 py-10 text-ink/60 dark:text-dink/60">
+        Couldn't load your data. Try refreshing the page.
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-5xl mx-auto px-6 py-10 space-y-8">
       <div>
